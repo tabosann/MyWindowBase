@@ -16,18 +16,8 @@ MyWindowBase::MyWindowBase()
 
 MyWindowBase::~MyWindowBase()
 {
+	// TODO : 登録されてなかったらShutDown()を実行しない処理
 	assert(ShutDown());
-}
-
-UINT MyWindowBase::GetMsg() const
-{
-	return _msg.message;
-}
-
-//作成されたウィンドウの合計数を返す
-int MyWindowBase::GetCount()
-{
-	return WndBase::_count;
 }
 
 bool MyWindowBase::Init(LPCWSTR name, int posX, int posY, int width, int height)
@@ -62,18 +52,6 @@ bool MyWindowBase::Init(LPCWSTR name, int posX, int posY, int width, int height)
 	return true;
 }
 
-//ウィンドウ表示
-bool MyWindowBase::Show() const
-{
-	return ::ShowWindow(_hwnd, SW_SHOW) ? true : false;
-}
-
-//ウィンドウの再描画
-bool MyWindowBase::Update() const
-{
-	return ::UpdateWindow(_hwnd) ? true : false;
-}
-
 // TODO: まだ試作品段階
 bool MyWindowBase::Close(unsigned short key) const
 {
@@ -84,22 +62,6 @@ bool MyWindowBase::Close(unsigned short key) const
 		return true;
 	}
 	return false;
-}
-
-bool MyWindowBase::CatchMsg()
-{
-	if (::PeekMessage(&_msg, NULL, 0, 0, PM_REMOVE))
-	{
-		::TranslateMessage(&_msg);
-		::DispatchMessage(&_msg);
-		return true;
-	}
-	return false;
-}
-
-void MyWindowBase::Quit()
-{
-	--MyWindowBase::_count;
 }
 
 bool MyWindowBase::ShutDown() const

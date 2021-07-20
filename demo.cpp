@@ -53,8 +53,15 @@ int main()
 		// (c) 作成したウィンドウの数だけメッセージを受け取るコードを記述する。
 		if (aw.CatchMsg())
 		{
-			if (aw.GetMsg() == WM_QUIT)
-				aw.Quit();
+			switch (aw.GetMsg())
+			{
+			case WM_QUIT:
+				aw.CountDown();
+				break;
+
+			default:
+				break;
+			}
 			continue;
 		}
 
