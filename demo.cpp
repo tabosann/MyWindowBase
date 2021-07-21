@@ -48,7 +48,7 @@ int main()
 	mw.Show(); mw.Update();
 
 	// (b) while()の条件を、ウィンドウの数が0になるまでループするように<WndBase::GetCount() != 0>にする。
-	while (WndBase::GetCount() != 0)
+	while (WndBase::WindowsExist())
 	{
 		// (c) 作成したウィンドウの数だけメッセージを受け取るコードを記述する。
 		if (aw.CatchMsg())
@@ -65,7 +65,7 @@ int main()
 			continue;
 		}
 
-		//この構文は上記の構文と同じことを行っています
+		//非推奨
 		if (WndBase::HelperForMsgProcess(mw)) continue;
 
 		// (d) 自分がやりたいことを記述する。

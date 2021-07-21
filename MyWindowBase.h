@@ -12,20 +12,19 @@ public:
 
 	MyWindowBase();
 
-	UINT       GetMsg() const;
-	static int GetCount();
+	UINT        GetMsg() const;
+	static int  GetCount();
+	static bool WindowsExist(); //ループ条件での使用に推奨
 
 	bool Init(LPCWSTR name, int posX = 0, int posY = 0, int width = 0, int height = 0);
 	bool Show() const;
 	bool Update() const;
-	bool WindowsExist() const;
-	bool Close(unsigned short key) const; //使用禁止
 	bool CatchMsg();
-	void Quit();
+	void Quit(); //非推奨
 	void CountDown();
 	bool ShutDown() const;
 
-	static bool    HelperForMsgProcess(MyWindowBase& wnd);
+	static bool    HelperForMsgProcess(MyWindowBase& wnd); //非推奨
 	static LRESULT WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 	virtual ~MyWindowBase();
@@ -41,6 +40,8 @@ private:
 	WNDCLASSEX _wndClass;
 	MSG        _msg;
 
+	bool Close(unsigned short key) const; //使用禁止
+
 	MyWindowBase(const MyWindowBase&) = delete;
 	MyWindowBase& operator=(const MyWindowBase&) = delete;
 };
@@ -55,7 +56,7 @@ using WndBase = WindowBase;
 //-------------------------------------------------------------------------------------------------
 
 //メッセージの取得
-UINT MyWindowBase::GetMsg() const
+inline UINT MyWindowBase::GetMsg() const
 {
 	return _msg.message;
 }
@@ -79,7 +80,7 @@ inline bool MyWindowBase::Update() const
 }
 
 //ウィンドウが存在するならTrueを返す
-inline bool MyWindowBase::WindowsExist() const
+inline bool MyWindowBase::WindowsExist()
 {
 	return MyWindowBase::_count > 0;
 }
