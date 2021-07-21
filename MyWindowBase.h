@@ -18,6 +18,7 @@ public:
 	bool Init(LPCWSTR name, int posX = 0, int posY = 0, int width = 0, int height = 0);
 	bool Show() const;
 	bool Update() const;
+	bool WindowsExist() const;
 	bool Close(unsigned short key) const; //使用禁止
 	bool CatchMsg();
 	void Quit();
@@ -77,7 +78,13 @@ inline bool MyWindowBase::Update() const
 	return ::UpdateWindow(_hwnd) ? true : false;
 }
 
-//何らかのメッセージを検知するとTrueを返す
+//ウィンドウが存在するならTrueを返す
+inline bool MyWindowBase::WindowsExist() const
+{
+	return MyWindowBase::_count > 0;
+}
+
+//何らかのメッセージを受け取るとTrueを返す
 inline bool MyWindowBase::CatchMsg()
 {
 	if (::PeekMessage(&_msg, NULL, 0, 0, PM_REMOVE))
