@@ -1,0 +1,9 @@
+#ビルド時に生成されるので無視する
+Debug/
+Release/
+.vs/
+*.vcxproj.user
+
+#ただしlibディレクトリは無視しない
+!lib/*
+!lib/x64/*
